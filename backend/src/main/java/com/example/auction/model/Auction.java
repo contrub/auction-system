@@ -1,33 +1,33 @@
 package com.example.auction.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Entity
-@Table(name="auction")
+@Getter
+@Setter
+@Table(name = "\"Auction\"")
 public class Auction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long auctionId;
 
-    @Column(name = "title")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @JoinColumn(name = "admin_id", nullable = false)
+    private User createdBy;
+
+    @Column(length = 100, nullable = false)
     private String title;
 
-    @Column(name = "description")
+    @Column
     private String description;
 
-    public String getTitle() {
-        return title;
-    }
+    @Column(nullable = false)
+    private LocalDate startDate = LocalDate.now();
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    @Column
+    private LocalDate endDate;
 }
