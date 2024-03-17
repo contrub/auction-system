@@ -1,8 +1,8 @@
-import Auctions from "./components/Auctions";
+import Users from "./components/Users";
 function App() {
   return (
     <div>
-      <Auctions/>
+      <Users/>
     </div>
   );
 }

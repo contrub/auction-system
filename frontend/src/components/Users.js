@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import api from "../services/api";
-const Auctions = () => {
-    const [auctions, setAuctions] = useState([]);
+const Users = () => {
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        api.get("/api/auctions")
-            .then(data => setAuctions(data))
+        api.get("/api/users")
+            .then(data => setUsers(data))
             .catch((err) => console.log(err))
     }, []);
 
-    if (!auctions.length) {
+    if (!users.length) {
         return (
             <div>
-                No auctions in DB ;(
+                No users in DB ;(
             </div>
         );
     }
@@ -20,7 +20,7 @@ const Auctions = () => {
     return (
         <div>
             <table border='1px'>
-                <caption>Auction Table</caption>
+                <caption>User Table</caption>
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -28,10 +28,10 @@ const Auctions = () => {
                     </tr>
                 </thead>
                 <tbody>
-                        {auctions.map((auction, key) => (
+                        {users.map((user, key) => (
                             <tr key={key}>
-                                <td>{auction.title}</td>
-                                <td>{auction.description}</td>
+                                <td>{user.first_name}</td>
+                                <td>{user.last_name}</td>
                             </tr>
                         ))}
                 </tbody>
@@ -39,4 +39,4 @@ const Auctions = () => {
         </div>
     );
 };
-export default Auctions;
+export default Users;
