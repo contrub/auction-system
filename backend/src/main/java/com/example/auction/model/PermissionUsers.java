@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "\"PermissionUsers\"")
+@Table(name = "\"permission_users\"")
 public class PermissionUsers {
     @Id
     @ManyToOne

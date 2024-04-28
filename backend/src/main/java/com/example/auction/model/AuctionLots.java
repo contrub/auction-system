@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "\"AuctionLots\"")
+@Table(name = "\"auction_lots\"")
 public class AuctionLots {
     @Id
     @ManyToOne
