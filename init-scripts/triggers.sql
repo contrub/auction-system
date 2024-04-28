@@ -1,3 +1,5 @@
+-- User triggers
+
 CREATE OR REPLACE FUNCTION prevent_negative_balance()
     RETURNS TRIGGER AS $$
 BEGIN
@@ -11,4 +13,21 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER prevent_negative_balance_trigger
     BEFORE INSERT OR UPDATE ON "user"
     FOR EACH ROW
-EXECUTE FUNCTION prevent_negative_balance();
+    EXECUTE FUNCTION prevent_negative_balance();
+
+-- Message triggers
+
+CREATE OR REPLACE FUNCTION prevent_self_messaging()
+    RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.user_from = NEW.user_to THEN
+        RAISE EXCEPTION 'Cannot send message to yourself';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER prevent_self_messaging_trigger
+    BEFORE INSERT OR UPDATE ON "message"
+    FOR EACH ROW
+    EXECUTE FUNCTION prevent_self_messaging();
