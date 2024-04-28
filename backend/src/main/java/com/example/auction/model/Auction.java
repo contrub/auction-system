@@ -13,11 +13,11 @@ import java.time.LocalDate;
 public class Auction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long auctionId;
+    private Long auction_id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "admin_id", nullable = false)
-    private User createdBy;
+    private User created_by;
 
     @Column(length = 100, nullable = false)
     private String title;
@@ -26,8 +26,8 @@ public class Auction {
     private String description;
 
     @Column(nullable = false)
-    private LocalDate startDate = LocalDate.now();
+    private LocalDate start_date = LocalDate.now();
 
     @Column
-    private LocalDate endDate;
+    private LocalDate end_date;
 }

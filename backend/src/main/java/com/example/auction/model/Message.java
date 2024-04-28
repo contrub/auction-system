@@ -11,15 +11,15 @@ import lombok.Setter;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long messageId;
+    private Long message_id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "user_from", nullable = false)
-    private User userFrom;
+    private User user_from;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "user_to", nullable = false)
-    private User userTo;
+    private User user_to;
 
     @Column(length = 50)
     private String topic;

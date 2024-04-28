@@ -12,7 +12,7 @@ public class Bid {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bidId;
+    private Long bid_id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "lot_id", nullable = false)

@@ -13,20 +13,20 @@ import java.time.LocalDate;
 public class Block {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long blockId;
+    private Long block_d;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "blocked_user_id", nullable = false)
-    private User blockedUser;
+    private User blocked_user;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "blocking_user_id", nullable = false)
-    private User blockingUser;
+    private User blocking_user;
 
     @Column(nullable = false)
     private String reason;
 
     @Column
-    private LocalDate expirationTime;
+    private LocalDate expiration_time;
 }
 
