@@ -1,0 +1,150 @@
+CREATE TABLE IF NOT EXISTS "user"
+(
+    user_id SERIAL NOT NULL PRIMARY KEY,
+    username VARCHAR(30) NOT NULL UNIQUE,
+    hashed_password VARCHAR(50) NOT NULL,
+    password_salt VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    balance DOUBLE PRECISION DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS "message"
+(
+    message_id SERIAL NOT NULL PRIMARY KEY,
+    user_from INTEGER NOT NULL,
+    user_to INTEGER NOT NULL,
+    topic VARCHAR(50),
+    body VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "block"
+(
+    block_id SERIAL NOT NULL PRIMARY KEY,
+    blocked_user_id INTEGER NOT NULL,
+    blocking_user_id INTEGER NOT NULL,
+    reason VARCHAR(255),
+    expiration_time DATE
+);
+
+CREATE TABLE IF NOT EXISTS "report"
+(
+    report_id SERIAL NOT NULL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    lot_id INTEGER NOT NULL,
+    description VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "proposal"
+(
+    proposal_id SERIAL NOT NULL PRIMARY KEY,
+    auction_id INTEGER NOT NULL,
+    lot_id INTEGER NOT NULL,
+    recruiter_id INTEGER NOT NULL,
+    description VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "category"
+(
+    category_id SERIAL NOT NULL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS "lot"
+(
+    lot_id SERIAL NOT NULL PRIMARY KEY,
+    auction_id INTEGER,
+    category_id INTEGER NOT NULL,
+    amount DOUBLE PRECISION,
+    title VARCHAR(100) NOT NULL,
+    description VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS "bid"
+(
+    bid_id SERIAL NOT NULL PRIMARY KEY,
+    lot_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    amount DOUBLE PRECISION NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "payment"
+(
+    payment_id SERIAL NOT NULL PRIMARY KEY,
+    lot_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    amount DOUBLE PRECISION NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "auction"
+(
+    auction_id SERIAL NOT NULL PRIMARY KEY,
+    admin_id INTEGER NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    description VARCHAR(255),
+    start_date DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    end_date DATE
+);
+
+CREATE TABLE IF NOT EXISTS "permission_users"
+(
+    user_id INTEGER NOT NULL,
+    auction_id INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS "auction_lots"
+(
+    auction_id INTEGER NOT NULL,
+    lot_id INTEGER NOT NULL
+);
+
+TRUNCATE "user" RESTART IDENTITY;
+TRUNCATE "message" RESTART IDENTITY;
+TRUNCATE "block" RESTART IDENTITY;
+TRUNCATE "report" RESTART IDENTITY;
+TRUNCATE "proposal" RESTART IDENTITY;
+TRUNCATE "lot" RESTART IDENTITY;
+TRUNCATE "bid" RESTART IDENTITY;
+TRUNCATE "payment" RESTART IDENTITY;
+TRUNCATE "auction" RESTART IDENTITY;
+
+ALTER TABLE "message"
+    ADD FOREIGN KEY (user_from) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD	FOREIGN KEY (user_to) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "block"
+    ADD FOREIGN KEY (blocked_user_id) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD	FOREIGN KEY (blocking_user_id) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "report"
+    ADD FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD	FOREIGN KEY (lot_id) REFERENCES "lot" (lot_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "proposal"
+    ADD	FOREIGN KEY (auction_id) REFERENCES "auction" (auction_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD	FOREIGN KEY (lot_id) REFERENCES "lot" (lot_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD FOREIGN KEY (recruiter_id) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "lot"
+    ADD FOREIGN KEY (auction_id) REFERENCES "auction" (auction_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD	FOREIGN KEY (category_id) REFERENCES "category" (category_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "bid"
+    ADD FOREIGN KEY (lot_id) REFERENCES "lot" (lot_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD	FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "payment"
+    ADD FOREIGN KEY (lot_id) REFERENCES "lot" (lot_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD	FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "auction"
+    ADD FOREIGN KEY (admin_id) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "permission_users"
+    ADD FOREIGN KEY (user_id) REFERENCES "user" (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD FOREIGN KEY (auction_id) REFERENCES "auction" (auction_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE "auction_lots"
+    ADD FOREIGN KEY (auction_id) REFERENCES "auction" (auction_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD FOREIGN KEY (lot_id) REFERENCES "lot" (lot_id) ON DELETE CASCADE ON UPDATE CASCADE;
