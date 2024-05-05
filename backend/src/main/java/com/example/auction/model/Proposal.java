@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Proposal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long proposal_id;
+    private Long id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "auction_id", nullable = false)

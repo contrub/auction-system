@@ -39,9 +39,9 @@ public class MessageController {
 
     @PostMapping("/messages")
     public ResponseEntity<Message> createMessage(@RequestBody Message message) {
-        User userFrom = userRepository.findById(message.getUser_from().getUser_id())
+        User userFrom = userRepository.findById(message.getUser_from().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Sender user not exist with this id"));
-        User userTo = userRepository.findById(message.getUser_to().getUser_id())
+        User userTo = userRepository.findById(message.getUser_to().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Receiver user not exist with this id"));
         message.setUser_from(userFrom);
         message.setUser_to(userTo);
@@ -53,9 +53,9 @@ public class MessageController {
     public ResponseEntity<Message> updateMessage(@PathVariable Long id, @RequestBody Message messageDetails) {
         Message message = messageRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Message not exist with this id"));
-        User userFrom = userRepository.findById(messageDetails.getUser_from().getUser_id())
+        User userFrom = userRepository.findById(messageDetails.getUser_from().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Sender user not exist with this id"));
-        User userTo = userRepository.findById(messageDetails.getUser_to().getUser_id())
+        User userTo = userRepository.findById(messageDetails.getUser_to().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Receiver user not exist with this id"));
         message.setUser_from(userFrom);
         message.setUser_to(userTo);

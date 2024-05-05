@@ -9,10 +9,9 @@ import lombok.Setter;
 @Setter
 @Table(name = "\"category\"")
 public class Category {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long category_id;
+    private Long id;
 
     @Column(nullable = false)
     private String title;
