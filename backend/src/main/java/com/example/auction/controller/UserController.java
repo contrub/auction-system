@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getAuctionById(@PathVariable Long id) {
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User"));
         return ResponseEntity.ok(user);

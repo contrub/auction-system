@@ -31,7 +31,7 @@ public class MessageController {
     }
 
     @GetMapping("/messages/{id}")
-    public ResponseEntity<Message> getMessageById(@PathVariable Long id) {
+    public ResponseEntity<Message> getMessage(@PathVariable Long id) {
         Message message = messageRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Message"));
         return ResponseEntity.ok(message);
