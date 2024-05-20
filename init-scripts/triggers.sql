@@ -48,3 +48,20 @@ CREATE TRIGGER prevent_negative_amount_trigger
     BEFORE INSERT OR UPDATE ON "payment"
     FOR EACH ROW
 EXECUTE FUNCTION prevent_negative_amount();
+
+-- Bid triggers
+
+CREATE OR REPLACE FUNCTION prevent_negative_bid()
+    RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.amount < 0 THEN
+        RAISE EXCEPTION 'Amount cannot be negative';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER prevent_negative_bid
+    BEFORE INSERT OR UPDATE ON "bid"
+    FOR EACH ROW
+EXECUTE FUNCTION prevent_negative_bid();
