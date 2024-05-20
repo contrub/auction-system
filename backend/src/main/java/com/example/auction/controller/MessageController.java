@@ -33,16 +33,16 @@ public class MessageController {
     @GetMapping("/messages/{id}")
     public ResponseEntity<Message> getMessageById(@PathVariable Long id) {
         Message message = messageRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Message not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Message"));
         return ResponseEntity.ok(message);
     }
 
     @PostMapping("/messages")
     public ResponseEntity<Message> createMessage(@RequestBody Message message) {
         User userFrom = userRepository.findById(message.getUser_from().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Sender user not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User-sender"));
         User userTo = userRepository.findById(message.getUser_to().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Receiver user not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User-receiver"));
         message.setUser_from(userFrom);
         message.setUser_to(userTo);
         messageRepository.save(message);
@@ -52,11 +52,11 @@ public class MessageController {
     @PutMapping("/messages/{id}")
     public ResponseEntity<Message> updateMessage(@PathVariable Long id, @RequestBody Message messageDetails) {
         Message message = messageRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Message not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Message"));
         User userFrom = userRepository.findById(messageDetails.getUser_from().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Sender user not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User-sender"));
         User userTo = userRepository.findById(messageDetails.getUser_to().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Receiver user not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User-receiver"));
         message.setUser_from(userFrom);
         message.setUser_to(userTo);
         message.setTopic(messageDetails.getTopic());
@@ -68,7 +68,7 @@ public class MessageController {
     @DeleteMapping("/messages/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteMessage(@PathVariable Long id) {
         Message message = messageRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Message not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("Message"));
         messageRepository.delete(message);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);

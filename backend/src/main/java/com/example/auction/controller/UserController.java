@@ -30,14 +30,14 @@ public class UserController {
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getAuctionById(@PathVariable Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User"));
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         if (userRepository.findByUsername(user.getUsername()) != null)
-            throw new ResourceAlreadyExistException("User already exist with this username");
+            throw new ResourceAlreadyExistException("User");
         userRepository.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -45,7 +45,7 @@ public class UserController {
     @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User"));
         user.setFirst_name(userDetails.getFirst_name());
         user.setLast_name(userDetails.getLast_name());
         User updatedUser = userRepository.save(user);
@@ -55,7 +55,7 @@ public class UserController {
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not exist with this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("User"));
         userRepository.delete(user);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
