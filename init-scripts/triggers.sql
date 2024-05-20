@@ -82,3 +82,20 @@ CREATE TRIGGER check_dates
     BEFORE INSERT OR UPDATE ON "auction"
     FOR EACH ROW
 EXECUTE FUNCTION check_dates();
+
+-- Lots triggers
+
+CREATE OR REPLACE FUNCTION prevent_negative_lot_amount()
+    RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.amount < 0 THEN
+        RAISE EXCEPTION 'Amount cannot be negative';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER prevent_negative_lot
+    BEFORE INSERT OR UPDATE ON "lot"
+    FOR EACH ROW
+EXECUTE FUNCTION prevent_negative_lot_amount();
