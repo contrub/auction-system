@@ -1,5 +1,6 @@
 package com.example.auction.model;
 
+import com.example.auction.model.key.PermissionUsersId;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,12 +10,13 @@ import lombok.Setter;
 @Setter
 @Table(name = "\"permission_users\"")
 public class PermissionUsers {
-    @Id
+    @EmbeddedId
+    private PermissionUsersId id;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "auction_id", nullable = false)
     private Auction auction;
