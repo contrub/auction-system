@@ -99,3 +99,21 @@ CREATE TRIGGER prevent_negative_lot
     BEFORE INSERT OR UPDATE ON "lot"
     FOR EACH ROW
 EXECUTE FUNCTION prevent_negative_lot_amount();
+
+
+-- Block triggers
+
+CREATE OR REPLACE FUNCTION prevent_negative_expiration_time()
+    RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.expiration_time < NOW() THEN
+        RAISE EXCEPTION 'Expiration time cannot be negative';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER prevent_negative_expiration_time
+    BEFORE INSERT OR UPDATE ON "block"
+    FOR EACH ROW
+EXECUTE FUNCTION prevent_negative_expiration_time();
