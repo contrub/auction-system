@@ -14,10 +14,12 @@ public class PermissionUsers {
     private PermissionUsersId id;
 
     @ManyToOne
+    @MapsId("userId")
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
+    @MapsId("auctionId")
     @JoinColumn(name = "auction_id", nullable = false)
     private Auction auction;
 }
