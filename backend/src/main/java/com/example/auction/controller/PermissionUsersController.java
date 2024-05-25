@@ -36,7 +36,7 @@ public class PermissionUsersController {
         return ResponseEntity.ok(permissionUsers);
     }
 
-    @GetMapping("/permission_users")
+    @GetMapping("/permission_user")
     private ResponseEntity<PermissionUsers> getPermissionUser(@RequestBody PermissionUsers permissionUsersDetails) {
         Auction auction = auctionRepository.findById(permissionUsersDetails.getAuction().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Auction"));

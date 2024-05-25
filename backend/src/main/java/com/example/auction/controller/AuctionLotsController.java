@@ -36,7 +36,7 @@ public class AuctionLotsController {
         return ResponseEntity.ok(auctionLots);
     }
 
-    @GetMapping("/auction_lots")
+    @GetMapping("/auction_lot")
     public ResponseEntity<AuctionLots> getAuctionLot(@RequestBody AuctionLots auctionLotDetails) {
         Auction auction = auctionRepository.findById(auctionLotDetails.getAuction().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Auction"));
