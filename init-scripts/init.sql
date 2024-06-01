@@ -2,8 +2,6 @@ CREATE TABLE IF NOT EXISTS "user"
 (
     id SERIAL NOT NULL PRIMARY KEY,
     username VARCHAR(30) NOT NULL UNIQUE,
-    hashed_password VARCHAR(50) NOT NULL,
-    password_salt VARCHAR(50) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     balance DOUBLE PRECISION DEFAULT 0

@@ -48,6 +48,7 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User"));
         user.setFirst_name(userDetails.getFirst_name());
         user.setLast_name(userDetails.getLast_name());
+        user.setBalance(userDetails.getBalance());
         User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);
     }

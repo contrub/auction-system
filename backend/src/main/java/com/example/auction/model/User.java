@@ -17,12 +17,6 @@ public class User {
     private String username;
 
     @Column(nullable = false, length = 50)
-    private String hashed_password;
-
-    @Column(nullable = false, length = 50)
-    private String password_salt;
-
-    @Column(nullable = false, length = 50)
     private String first_name;
 
     @Column(nullable = false, length = 50)
