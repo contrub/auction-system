@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 
 import { CircularProgress, IconButton, Stack, Typography } from '@mui/material';
+import {DataGrid} from "@mui/x-data-grid";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import UserService from "../services/UserService";
-import '../styles/UsersStyles.css';
-import {DataGrid} from "@mui/x-data-grid";
 
-const redirect = (id) => {
-    window.location.href = `/users/${id}`;
-}
+import UserService from "../services/UserService";
+
+import '../styles/DataGridStyles.css';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const handleEditClick = (id) => {
+        window.location.href = `/users/${id}`;
+    };
 
     const handleDeleteClick = async (id) => {
         try {
@@ -50,7 +52,7 @@ const Users = () => {
             flex: 0.75,
             renderCell: ({ row }) => (
                 <Stack direction="row" spacing={1}>
-                    <IconButton color="primary" onClick={() => redirect(row.id)}>
+                    <IconButton color="primary" onClick={() => handleEditClick(row.id)}>
                         <EditIcon />
                     </IconButton>
                     <IconButton color="secondary" onClick={() => handleDeleteClick(row.id)}>
@@ -71,7 +73,7 @@ const Users = () => {
 
     if (!users.length) {
         return (
-            <div className="no-users-box">
+            <div className="no-data-box">
                 <Typography variant="h6">
                     No users found
                 </Typography>
@@ -100,6 +102,9 @@ const Users = () => {
                 disableColumnSorting
                 disableRowSelectionOnClick
             />
+            <Typography variant="subtitle1" style={{ marginTop: '20px', textAlign: 'center' }}>
+                For financial statistics <a href="/financial-stats">click here</a>.
+            </Typography>
         </div>
     );
 };
