@@ -126,7 +126,6 @@ const User = () => {
                     )}
                     <div className="flex-center">
                         <Button className="MuiButton-root" onClick={handleSaveClick}>Save</Button>
-                        <Button className="MuiButton-root" onClick={handleDeleteClick}>Remove</Button>
                     </div>
                 </div>
             </Grid>
