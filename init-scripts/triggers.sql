@@ -117,3 +117,20 @@ CREATE TRIGGER prevent_negative_expiration_time
     BEFORE INSERT OR UPDATE ON "block"
     FOR EACH ROW
 EXECUTE FUNCTION prevent_negative_expiration_time();
+
+-- AuctionLots triggers
+CREATE OR REPLACE FUNCTION add_lot_to_auction_lots()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.auction_id IS NOT NULL THEN
+        INSERT INTO auction_lots (auction_id, lot_id) VALUES (NEW.auction_id, NEW.id);
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger definition
+CREATE TRIGGER trigger_add_lot_to_auction_lots
+AFTER INSERT ON lot
+FOR EACH ROW
+EXECUTE FUNCTION add_lot_to_auction_lots();
