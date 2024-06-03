@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import { Button, Grid, TextField, Typography, Avatar } from '@mui/material';
+import {Button, Grid, TextField, Typography, Avatar, CircularProgress} from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useTheme } from '@mui/material/styles';
 
 import UserService from "../services/UserService";
-import Loading from "../components/Loading";
 import '../styles/UserStyle.css';
 
 const redirect = () => {
@@ -61,18 +60,6 @@ const User = () => {
         }
     };
 
-    const handleDeleteClick = async () => {
-        try {
-            await UserService.deleteUser({ id: formData.id });
-            setError(null);
-            redirect();
-        } catch (err) {
-            console.error('Error deleting user:', err);
-            setIsLoading(false);
-            setError(err.message);
-        }
-    };
-
     return (
         <Grid container justifyContent="center" alignItems="center" className="container">
             <Grid item xs={12} md={6} lg={4}>
@@ -84,7 +71,9 @@ const User = () => {
                         <AccountCircleIcon />
                     </Avatar>
                     {isLoading ? (
-                        <Loading />
+                        <div className="loading-box">
+                            <CircularProgress/>
+                        </div>
                     ) : (
                         <form>
                             <TextField
