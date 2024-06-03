@@ -1,4 +1,4 @@
-.loading-box, .no-users-box {
+.loading-box, .no-data-box {
     display: flex;
     justify-content: center;
     align-items: center;
