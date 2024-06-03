@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 const _apiHost = process.env.REACT_APP_API_HOST;
 
 async function request(url, params, method = "GET") {
@@ -6,6 +8,12 @@ async function request(url, params, method = "GET") {
         headers: {
             "Content-Type": "application/json"
         }
+    }
+
+    const reqAuthHeader = Cookies.get("Authorization");
+
+    if (reqAuthHeader) {
+        options.headers["Authorization"] = `Bearer ${reqAuthHeader}`
     }
 
     if (params) {
@@ -17,6 +25,11 @@ async function request(url, params, method = "GET") {
     }
 
     const response = await fetch(_apiHost + url, options)
+    const resAuthHeader = response.headers.get("Authorization");
+
+    if (resAuthHeader) {
+        Cookies.set('accessToken', resAuthHeader.split(' ')[1])
+    }
 
     return new Promise((resolve, reject) => {
         if (response.ok) {
@@ -66,4 +79,4 @@ const api = {
     remove: remove
 }
 
-export default api
+export default api;

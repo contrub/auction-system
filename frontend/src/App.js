@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom"
 import Navbar from "./components/Navbar"
 
 import Login from "./pages/auth/Login"
+import SignUp from "./pages/auth/SignUp"
 
 import Users from "./pages/Users";
 import User from "./pages/User"
@@ -15,6 +16,8 @@ function App() {
         </div>
         <Routes>
             <Route path="/users" element={<Users/>}/>
+            <Route path="/login" element={ <Login/> }/>
+            <Route path="/signup" element={ <SignUp/> }/>
             <Route path="/users" element={ <Users/> }/>
             <Route path="/users/:id" element={ <User/> }/>
         </Routes>

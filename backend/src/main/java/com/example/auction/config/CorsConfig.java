@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
-
     @Value("${spring.graphql.cors.allowed-origins}")
     String[] allowedOrigins;
 
@@ -17,6 +16,15 @@ public class CorsConfig implements WebMvcConfigurer {
                 .addMapping("/api/**")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .allowedOrigins(allowedOrigins);
+                .allowedOrigins(allowedOrigins)
+                .exposedHeaders("Authorization")
+                .allowCredentials(true);
+        registry
+                .addMapping("/auth/**")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowedOrigins(allowedOrigins)
+                .exposedHeaders("Authorization")
+                .allowCredentials(true);
     }
 }
