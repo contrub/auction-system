@@ -1,4 +1,4 @@
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 
 const _apiHost = process.env.REACT_APP_API_HOST;
 
@@ -10,7 +10,7 @@ async function request(url, params, method = "GET") {
         }
     }
 
-    const reqAuthHeader = Cookies.get("Authorization");
+    const reqAuthHeader = Cookies.get("accessToken");
 
     if (reqAuthHeader) {
         options.headers["Authorization"] = `Bearer ${reqAuthHeader}`
