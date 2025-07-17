@@ -113,22 +113,26 @@ This project demonstrates implemention a web-based auction information system th
 docker-compose up --build
 ```
 The system will be available at:
-- Frontend: http://localhost:3000
-- Backend: http://localhost:8080
 - Database: http://localhost:5432
+- Backend: http://localhost:8080
+- Frontend: http://localhost:3000
 
 ### Option 2: Manual Setup
-1. PostgreSQL Setup
+#### 1. Database
+
 Install PostgreSQL and create a new database (e.g., auction)
 Execute all SQL files in the init-scripts folder to set up schema, triggers, and roles.
-2. Backend
+
+#### 2. Backend
+
 Go to the backend directory.
 Create a .env file based on .env.sample.
 Run the Spring Boot app:
 ```bash
 ./mvnw spring-boot:run
 ```
-3. Frontend
+#### 3. Frontend
+
 Navigate to the frontend directory.
 Create a .env file based on .env.sample.
 Install dependencies and start the React app:
@@ -137,6 +141,6 @@ npm install
 npm start
 ```
 4. Access
-- Frontend: http://localhost:3000
-- Backend: http://localhost:8080
 - Database: http://localhost:5432
+- Backend: http://localhost:8080
+- Frontend: http://localhost:3000
