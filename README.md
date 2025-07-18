@@ -3,6 +3,29 @@
 ## Overview  
 This project demonstrates implemention a web-based auction information system that automates the creation and management of auctions, lots, bids, and user roles. The system follows a three-tier architecture and uses the MVC pattern to ensure clear separation of concerns.
 
+## Project Demo
+
+<details>
+<summary><b>Click to expand</b></summary>
+
+![Home Page](images/home_page.png)
+
+Home page demo
+
+![Login Page](images/login_page.png)
+
+Login page demo
+
+![Auctions Page](images/auctions_page.png)
+
+Auctions page demo
+
+![Create Auction Page](images/create_auction_page.png)
+
+Create auction page demo
+
+</details>
+
 ## Features  
 - Role-based access: Participant, Recruiter, Administrator  
 - User registration and authentication  
