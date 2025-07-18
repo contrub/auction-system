@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
+import Home from "./pages/static/Home";
 import ForbiddenPage from "./pages/static/ForbiddenPage"
 import NotFoundPage from "./pages/static/NotFoundPage"
 import Auctions from "./pages/auction/Auctions"
@@ -32,6 +33,7 @@ const App = () => {
             <Navbar/>
         </div>
         <Routes>
+            <Route path="/" element={ <Home/> }/>
             <Route path="/login" element={ <Login/> }/>
             <Route path="/signup" element={ <SignUp/> }/>
             <Route path="/auctions" element={ <ProtectedRoute element={Auctions}
