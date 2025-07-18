@@ -51,7 +51,7 @@ const Navbar = () => {
         setOpen(newOpen);
     };
 
-    const isAuthenticated = () => Boolean(Cookies.get("accessToken"));
+    const jwtToken = Cookies.get("accessToken");
 
     const logout = () => {
         AuthService.logout()
@@ -69,7 +69,7 @@ const Navbar = () => {
     const renderAuthLinks = () => {
         return (
             <Typography variant="subtitle1" component="span">
-                {isAuthenticated() ? (
+                {jwtToken ? (
                     <Link to={paths.home} style={styles.navbarLink} onClick={logout}>Logout</Link>
                 ) : (
                     <Link to={paths.login} style={styles.navbarLink}>Login</Link>
@@ -131,6 +131,7 @@ const Navbar = () => {
             <ErrorSnackbar
                 open={snackbarOpen}
                 message={error}
+                onClose={() => setSnackbarOpen(false)}
             />
         </AppBar>
     );

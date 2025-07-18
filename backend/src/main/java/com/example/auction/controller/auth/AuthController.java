@@ -121,12 +121,7 @@ public class AuthController {
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", userRoles);
 
-        String jwt = jwtService.generateToken(claims, username);
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + jwt);
-
         return ResponseEntity.ok()
-                .headers(headers)
                 .body(roles);
     }
 }
