@@ -83,6 +83,7 @@ const Users = () => {
             <ErrorSnackbar
                 open={snackbarOpen}
                 message={error}
+                onClose={() => setSnackbarOpen(false)}
             />
         </div>
     );

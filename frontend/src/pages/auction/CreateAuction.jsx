@@ -93,6 +93,7 @@ const CreateAuction = () => {
                 <ErrorSnackbar
                     open={snackbarOpen}
                     message={error}
+                    onClose={() => setSnackbarOpen(false)}
                 />
             </Grid>
         </Grid>

@@ -65,6 +65,7 @@ const LotBids = () => {
             <ErrorSnackbar
                 open={snackbarOpen}
                 message={error}
+                onClose={() => setSnackbarOpen(false)}
             />
         </div>
     );

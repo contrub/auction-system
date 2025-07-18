@@ -65,6 +65,7 @@ const LotProposals = () => {
             <ErrorSnackbar
                 open={snackbarOpen}
                 message={error}
+                onClose={() => setSnackbarOpen(false)}
             />
         </div>
     );

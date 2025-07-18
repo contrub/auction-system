@@ -180,6 +180,7 @@ const AuctionLots = ({userRoles}) => {
             <ErrorSnackbar
                 open={snackbarOpen}
                 message={error}
+                onClose={() => setSnackbarOpen(false)}
             />
         </div>
     );

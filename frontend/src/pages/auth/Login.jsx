@@ -95,6 +95,7 @@ const Login = () => {
                     <ErrorSnackbar
                         open={snackbarOpen}
                         message={error}
+                        onClose={() => setSnackbarOpen(false)}
                     />
                 </form>
             </Box>
